@@ -4,7 +4,7 @@ A working setup for a business analyst on a delivery project: the product state 
 
 This repository holds the pieces — context files, a system prompt, five skills, and a worked example — so you can take the parts that fit your project rather than adopt the whole thing.
 
-Written up in detail here: `<link to the article>`.
+An article walking through the framework in detail is on the way; the link will land here when it is published.
 
 ---
 
@@ -56,6 +56,6 @@ The skills carry a house style — `must` rather than `shall`, criteria numbered
 
 What is worth keeping as-is: the separation between what the AI proposes and what you approve, the rule that every statement carries a source, and the habit of marking an assumption as an assumption.
 
-## Licence
+## License
 
 MIT. Use, adapt, and redistribute freely.
