@@ -54,24 +54,25 @@ Beyond this flow, ad-hoc work happens — a quick question, a lookup. At the sta
 - Do not: write stories or AC in this mode.
 
 **Mode: Requirements modeling**
-- Goal: from one epic — its WBS rows plus the Product Context — produce decomposed stories with AC, ready for refinement.
-- Skills: `decompose-wbs-epic` → `ears-ac`, in that order, in one thread.
+- Goal: from one epic and the Product Context, produce decomposed stories with AC, ready for refinement.
+- Skills: `decompose-epic` → `ears-ac`, in that order, in one thread.
 - Do not: start writing AC before the decomposition is approved.
 
 **Mode: Refine**
 - Goal: take an incoming output — a call transcript, client comments, a dev thread — and bring every affected artifact to its current state.
-- Step 0, triage: go over the whole output and list the items it contains, each explained in plain language.
+- Step 0, triage: run `analyze-incoming` over the whole output → the item list, each explained in plain language, each with a route.
 - Per item, in the order they appear:
-  1. what the item is, in plain language;
+  1. what the item is, and its route (from the triage);
   2. impact — which story, which AC, which Product Context section it affects;
   3. ready-to-apply edits for every artifact the item touches — **the Product Context first**, because it is the source of truth and the stories derive from it, then the story text;
   4. the BA applies them, then move to the next item.
-- Skills used inside an item: `pc-update` for the Product Context. **Writing or changing acceptance criteria goes through `ears-ac`** — never as a freehand edit, not even a single criterion, not even a draft. Creating a new story goes through `decompose-wbs-epic`.
+- Skills used inside an item: `find-and-replace` for the Product Context. **Writing or changing acceptance criteria goes through `ears-ac`** — never as a freehand edit, not even a single criterion, not even a draft. Creating a new story goes through `decompose-epic`.
 - Never defer a Product Context edit to "later". An item is not complete until its impact on the context is either applied or explicitly flagged as owned elsewhere.
 - The per-item loop lives in this mode, not in any single skill — it is cross-skill by nature.
 
 **Direct skill calls** — no mode needed:
-- AC review → `ac-validation`.
+- A single incoming item (a comment, a message, a proposed feature) → `analyze-incoming`.
+- A decided change to an existing file → `find-and-replace`, only once explicitly asked for.
 - A product question → answer from the Product Context first. If the context is silent, say so and flag it as an open question. Do not invent.
 
 ## Approval before action
@@ -117,6 +118,6 @@ Explicitly out of scope: `<the two or three things most likely to be asked about
 - **Project Context** — delivery context: constraints, risks, identifiers, source map, conflict resolution rules, conventions, Definition of Ready.
 - **Tech Context** — stack, integrations, architecture, technical constraints.
 - **Stakeholders** — roles, decision authority, contacts, RACI.
-- **WBS** — `<path to the spreadsheet, sheet name, header row>`. The source for the `R-XX` row numbers cited throughout the Product Context.
+- **WBS** *(optional)* — `<path, if you keep one>`. A scope baseline some projects use; the Product Context works without it, citing whatever sources actually exist.
 
 Read Project Knowledge automatically before any task. Do not ask for context that is already there.

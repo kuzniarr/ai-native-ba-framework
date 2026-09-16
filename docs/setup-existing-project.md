@@ -1,77 +1,66 @@
 # Setting up on a project already under way
 
-Harder than a new project, for one reason: the decisions were made before you started collecting them. You will not recover the history — you will recover the current state.
+Harder than a new project, for one reason: the decisions were made before you started collecting them. You won't recover the history — you'll recover the current state.
 
-That is enough to be useful. A context that says what the product does today, without saying why, still answers most of the questions you get asked.
+That's enough to be useful. A context that says what the product does today, without saying why, still answers most of the questions you get asked.
 
 ---
 
-## 1. Decide what "current state" means here
+## 1. Pick your authority
 
-Before gathering anything, answer one question: **what is the authority on how the product behaves today?**
+Before gathering anything, decide: **what's the source of truth for how the product behaves today?**
 
-Usually one of these:
+Usually one of:
 
-- **The running system** — if it is live, the code and the behaviour are the truth, and the documents are a description of it that may have drifted.
-- **The specifications** — if the team works spec-first and ships what is written.
-- **The tickets** — if neither of the above holds and the backlog is where decisions actually landed.
+- **Tickets** — the backlog is where decisions actually landed, specs lag behind or never existed at scope level.
+- **Specifications** — the team works spec-first and ships what's written.
+- **The running system** — if neither of the above holds, the code and the behaviour are the truth.
 
-Pick one. When two sources disagree later, this is the tiebreaker, and deciding it now is much easier than deciding it in the middle of a conflict.
+Pick one and say so out loud — this decides how you resolve every conflict later, so it's cheaper to name now than mid-cleanup. On most delivery projects it's tickets: specs describe intent, tickets describe what actually got built and often outlive the spec that spawned them.
 
-## 2. Gather what exists
+## 2. Filter for what's still true
 
-Collect, in rough order of usefulness:
+Don't gather everything — gather what's current.
 
-- specifications, wiki pages, requirement documents;
-- the WBS or whatever holds the scope baseline;
-- closed tickets for the features already shipped;
-- transcripts, if anyone kept them;
-- the design files.
+A ticket's age isn't the filter. A recently closed ticket for a feature that got reworked twice is stale; a two-year-old ticket for a rule nobody's touched since is still accurate. What you're filtering for is: **does this still describe how the product behaves right now?** Drop what a later ticket superseded, what got reversed, what shipped and was then redesigned.
 
-Do not clean any of it up first. Contradictions between these documents are information — they tell you where the product drifted, and the skill is built to surface them rather than to smooth them over.
+You know your product's history — this step is faster for you than it looks from outside.
 
-## 3. Build the baseline
+## 3. Synthesize before you feed anything to pc-from-zero
 
-Run `pc-from-zero`, feeding sources in the order they were written, oldest first. Same rule as on a new project: a later source refines an earlier one, and reversing the order makes the newer decision look like the contradiction.
+This is the step that makes brownfield work, and it's not in the skill's default flow.
 
-Two things to expect, and neither is a problem:
+Don't hand `pc-from-zero` a pile of raw tickets. Have Claude read them first and produce a synthesis — the current state, in plain language, per feature area or per epic. Ask directly: *"Here are the tickets for [area]. Summarize the current behaviour these describe — not a changelog, the state as it stands now."*
 
-**Citations will be thin.** Where a new project cites a transcript with a timestamp, you will cite "spec page X" or "ticket ABC-123". That is a weaker trace, and it is honest. Do not upgrade it to look better.
+Feed **that synthesis** into `pc-from-zero`, not the raw tickets. Two things follow from this:
 
-**Contradictions will be plentiful.** Let them be recorded rather than resolved. You are not yet in a position to decide which version won — that comes next.
+- **Source order stops mattering.** When you feed dated transcripts one at a time, order matters because a later one can override an earlier one. A synthesis has already resolved that — there's nothing left to sequence.
+- **Contradictions mostly don't reach the skill.** Summarizing forces a decision on anything two tickets disagree about. What's left for `pc-from-zero` to flag is what the synthesis itself couldn't resolve — genuinely unclear.
 
-## 4. Verify against reality
+You can feed the whole synthesis in one pass if the product is small enough to summarize coherently. On a larger one, do it by feature area, so each synthesis stays something you can actually review before it goes in.
 
-This is the step that makes the difference, and the one most likely to be skipped.
+## 4. Verify — high-level, not exhaustively
 
-For every contradiction the build surfaced, and for every rule that matters, check it against whatever you named as the authority in step 1:
+You won't verify every line, and you don't need to. Go high-level:
 
-- ask the developer who built it;
-- read the code path;
-- click through the running system.
+- Ask the dev team to sanity-check the areas that feel least certain, rather than routing every rule through them — their time is the actual bottleneck here, not yours.
+- Where you have code access, a tool like Copilot or Cursor can check a stated rule against the implementation directly — often faster than asking a person, and a reasonable first pass before you spend someone else's time.
+- What's left unverified stays visibly unverified. Don't upgrade an assumption to a confirmed fact because verifying it felt like too much work.
 
-Mark each verified statement as confirmed. Mark what you could not verify as an assumption — explicitly, using the same inline markers the skill already uses. A file where the verified and the unverified look alike is worse than no file, because it invites trust it has not earned.
+## 5. Fill the gaps forward
 
-Expect this to take longer than the build itself.
+Don't try to reconstruct missing history — you don't have it, and a plausible-sounding invented rationale is worse than an honest gap. Where the context is silent, leave it as an open question and resolve it at the next elicitation, refinement, or whenever it actually blocks a story.
 
-## 5. Fill the gaps forward, not backward
+## 6. Prove it on the next epic
 
-Do not try to reconstruct missing history. Where the context is silent on something, write it as an open question and answer it at the next elicitation, the next refinement, or the next time it actually blocks a story.
+Run `decompose-epic` against the context you just built, on whatever epic is next in the backlog.
 
-Over a few sprints the file fills itself, and everything added from that point forward carries a proper source. The gaps that never get filled were, by definition, never load-bearing.
-
-## 6. Prove it on one epic before trusting it
-
-Take the next epic in the backlog and run `decompose-wbs-epic` against the context you just built.
-
-What you are watching for is not the decomposition. It is the **gaps section**: a flow in the context that no story covers, or a story whose rules the context does not support. On a live project those gaps are the measure of how far your file is from the product.
-
-Fix the file. Then run it again.
+Watch the **open questions**, not the decomposition itself: a flow the context doesn't cover, or a story whose rules the context doesn't support. That gap is the actual distance between your file and the product. Fix the file, run it again.
 
 ---
 
 ## Two things that go wrong here
 
-**Backfilling the "why".** It is tempting to write a plausible reason for a decision nobody remembers. Do not. A wrong rationale is worse than a missing one, because it will be quoted back at you in a refinement.
+**Backfilling the "why."** Tempting to write a plausible reason for a decision nobody remembers. Don't — a wrong rationale gets quoted back at you in a refinement, and by then it reads as fact.
 
-**Declaring it done.** On a new project the Product Context is complete when sources are exhausted. Here it is complete when it stops surprising you — when a week passes without someone pointing at a rule the file does not have. Give it a month.
+**Treating this as equivalent to a new project.** It isn't. There's no decision history here and there won't be one — that's the real cost of starting mid-project, not something this process fixes. What it gets you is an accurate *current state*, which is most of what you need day to day.

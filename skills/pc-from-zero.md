@@ -1,18 +1,18 @@
 ---
 name: pc-from-zero
-description: "Build a project's Product Context (`product_context.md`) from scratch by incrementally synthesizing sources the BA provides — WBS, discovery transcripts, PRD, kick-off notes, client answers — into one traceable product source of truth. Use when there is no Product Context file yet and you are creating the skeleton and its first population. Owns the empty §1–§11 skeleton, the per-source incremental loop, inline source traceability, and finalize. Once the file exists and a new source must be folded in, use pc-update instead."
+description: "Build a project's Product Context (`product_context.md`) from scratch by incrementally synthesizing sources the BA provides — WBS, discovery transcripts, PRD, kick-off notes, client answers — into one traceable product source of truth. Use when there is no Product Context file yet and you are creating the skeleton and its first population. Owns the empty §1–§11 skeleton, the per-source incremental loop, inline source traceability, and finalize. Once the file exists and a new source must be folded in, use find-and-replace instead."
 ---
 
 # Product Context — from zero
 
 Build `product_context.md` as the single product source of truth, synthesized only from sources the BA provides. The document grows source by source; this skill owns the empty skeleton and the first build through to a usable draft.
 
-## When to use vs pc-update
+## When to use vs find-and-replace
 
 - **pc-from-zero (this skill):** no Product Context file exists. Create the §1–§11 skeleton and populate it from the first sources until the BA has a coherent draft.
-- **pc-update:** the file already exists and a new source must be folded in as targeted find/replace edits. Hand off once the file is established.
+- **find-and-replace:** the file already exists and a new source must be folded in as targeted find/replace edits. Hand off once the file is established.
 
-The seam matters: this skill may create and shape the file; pc-update only patches an existing one.
+The seam matters: this skill may create and shape the file; find-and-replace only patches an existing one.
 
 ## Inputs
 

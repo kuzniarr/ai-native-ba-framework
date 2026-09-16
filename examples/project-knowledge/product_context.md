@@ -3,6 +3,8 @@ _Last updated: 2026-08-26_
 
 > All data in this file describes a fictional product used as a working example. Client, people, and decisions are invented.
 
+> **Reading the references.** Every statement carries an inline source — `(S4 transcript 00:28:30)`, `(S2 WBS R41)`, `(S1 §2.1)`. The sources behind `S1`–`S6` are listed in §10.1. Decisions taken after the last numbered source are cited by person and date instead.
+
 ## 1. Product overview
 
 Internal meeting-room booking tool for Meridian Group, a professional-services company with offices in Berlin, Warsaw, and London (S1 §2.1). It replaces a per-office spreadsheet that cannot prevent double bookings and gives no visibility into room utilisation (S1 §1.3; S3 transcript 00:04:10). MVP covers three offices, 42 rooms, ~900 employees (S1 §2.1; S2 WBS R12).

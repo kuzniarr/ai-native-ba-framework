@@ -185,7 +185,7 @@ Written against the example Product Context in this repository.
 | Room | select | Yes | an active room in an office where the user holds a role | rejection message names the conflicting holder |
 | Start date and time | date-time | Yes | not in the past; no more than 30 days ahead; within the room office's working hours | granularity `TBD` |
 | End date and time | date-time | Yes | after the start; no more than 4 hours after the start; within working hours | granularity `TBD` |
-| Attendees | multi-select | No | users of the same office | above room capacity shows a warning, not a block |
+| Attendees | multi-select | No | `TBD` — no constraint on the attendee pool is stated in the Product Context | above room capacity shows a warning, not a block |
 
 **Related stories**
 1. Finding a room that is free in the wanted slot → see Search for rooms available in a time slot.
@@ -198,6 +198,7 @@ Written against the example Product Context in this repository.
 **Open Questions**
 1. What time granularity does the slot picker use — 15, 30, or 60 minutes? Proposed: 15 minutes.
 2. Can a user book a slot that has already started today, or only future slots? Proposed: future slots only.
+3. Who can be added as an attendee — only users in the holder's home office, or anyone in the company? Not stated in the Product Context.
 ````
 
 ## Final gate — run before delivering
