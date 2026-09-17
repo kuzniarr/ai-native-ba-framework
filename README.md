@@ -2,7 +2,7 @@
 
 A working setup for a business analyst on a delivery project: the product state lives in one file, requirements are derived from it, and repeatable BA activities run as skills instead of pasted prompts.
 
-This repository holds the pieces — context files, a system prompt, five skills, and a worked example — so you can take the parts that fit your project rather than adopt the whole thing.
+Companion repository to the article. It holds a starter set — context files, a system prompt, five skills, and a worked example — not the full system: the article walks through about ten BA activities, five of them ship here as skills, the rest are built the same way on your own process.
 
 An article walking through the framework in detail is on the way; the link will land here when it is published.
 
